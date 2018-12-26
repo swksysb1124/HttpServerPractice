@@ -1,9 +1,10 @@
 # HttpServerPractice
 
-在此範例中，對HttpHandler做了簡單的封裝：繼承 BaseHandler，僅需直接實現接收到不同 HTTP Method 的請求的處理方式即可。
+使用 `com.sun.net.httpserver`封包實現輕量級的 Http Server。
+在本專案中，對 HttpHandler 做了簡單的封裝：繼承 BaseHandler，僅需直接實現接收到不同 HTTP Method 的請求的處理方式即可。
 
 
-## 基本說明
+## HttpServer 基本說明
 
 幾個重要的類別
 - HttpServer
@@ -21,7 +22,7 @@ private HttpServer mServer;
 ```java
 private void initServer() throws IOException {
     mServer = HttpServer.create(new InetSocketAddress(PORT), 0); // bind port and ip
-    mServer.createContext("/device", new DeviceHandler()); // set context & its http handler
+    mServer.createContext("/device", new DeviceHandler()); // add context & its http handler
     mServer.setExecutor(Executors.newFixedThreadPool(4)); // set executor
 }
 ```
