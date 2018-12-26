@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 public class DeviceHandler extends BaseHandler {
@@ -28,6 +29,10 @@ public class DeviceHandler extends BaseHandler {
 		
 		BaseResponse response = null;
 		String query = param.getRequestURI().getQuery();
+		
+		
+		
+		
 		
 		Map<String, String> queryMap = getQeuryMap(query);
 		if(queryMap.get("id")!=null) {

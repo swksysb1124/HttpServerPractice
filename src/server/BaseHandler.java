@@ -3,11 +3,14 @@ package server;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.URI;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -18,10 +21,20 @@ public abstract class BaseHandler implements HttpHandler{
 			throws IOException {
 		
 		String method = param.getRequestMethod();
+		Headers headers = param.getRequestHeaders();
+		URI requestURI = param.getRequestURI();
+		InetAddress remoteAddress = param.getRemoteAddress().getAddress();
 		
-		System.out.print(method+" "+param.getRequestURI());
-		System.out.print("\t"+param.getRemoteAddress().getAddress().toString());
+		System.out.println("[[ Accept ]]\n");
+		System.out.print(method+" "+requestURI);
+		System.out.print("\t"+remoteAddress);
 		System.out.println("@"+new Date().toString());
+		
+		for(String key: headers.keySet()){
+			if(key != null) {
+				System.out.println(key+":"+headers.get(key));
+			}
+		}
 		
 		BaseResponse b_response = null;
 		
@@ -50,7 +63,7 @@ public abstract class BaseHandler implements HttpHandler{
 			b_response.statusCode = 401;
 		}
 		
-		System.out.println("Response: "+b_response.toString());
+		System.out.println("\nResponse: "+b_response.toString()+"\n");
 		
 		param.sendResponseHeaders(b_response.statusCode, b_response.response.length());
 		
