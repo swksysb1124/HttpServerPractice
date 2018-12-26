@@ -8,12 +8,36 @@
 - HttpHandler
 
 ## HttpHandler
-為抽象類別，必須實作`void handle(httpExchange)`方法，也就是在特定的Context下，處理不同 Http Request的方法。
+
+為抽象類別，必須實作`void handle(httpExchange)`方法，也就是在特定的Context下，處理不同 Http Request的方法。我
+所謂的Context，其實指的就是相對於root URL的路徑(Path) ex: `/device`
+
+```java
+public class YourHandler implements HttpHandler{
+	
+    @Override
+    public void handle(HttpExchange param) throws IOException {
+		
+        String method = param.getRequestMethod();
+        Headers headers = param.getRequestHeaders();
+        URI requestURI = param.getRequestURI();
+        InetAddress remoteAddress = param.getRemoteAddress().getAddress();
+        
+		// 基於 Request 的 Method, Headers, URI, Qeuery 做處理 
+        // ...
+		
+        param.close();	
+	}
+}
+
+```
 
 ## HttpExchange
-該類別提供Http Request的所有資訊。
+
+該類別提供 Http Request 的所有資訊，包含 Method, Headers, Request Body, Query ...
 
 ## HttpServer
+
 提供Http Server的實體。一旦啟動就會阻塞執行續直到它關閉。
 
 ```java
