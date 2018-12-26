@@ -20,9 +20,9 @@ private HttpServer mServer;
 初始化HttpServer
 ```java
 private void initServer() throws IOException {
-    mServer = HttpServer.create(new InetSocketAddress(PORT), 0);
-    mServer.createContext("/device", new DeviceHandler());
-    mServer.setExecutor(Executors.newFixedThreadPool(4)); // create a default executor
+    mServer = HttpServer.create(new InetSocketAddress(PORT), 0); // bind port and ip
+    mServer.createContext("/device", new DeviceHandler()); // set context & its http handler
+    mServer.setExecutor(Executors.newFixedThreadPool(4)); // set executor
 }
 ```
 開啟HttpServer
