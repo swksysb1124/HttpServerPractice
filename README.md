@@ -41,7 +41,7 @@ mServer.stop(0);
 
 ### HttpHandler
 
-為抽象類別，必須實作`void handle(httpExchange)`方法，也就是在特定的Context下，處理不同 Http Request的方法。我
+必須實作`void handle(httpExchange)`方法，也就是在特定的Context下，處理不同 Http Request的方法。
 所謂的Context，其實指的就是相對於root URL的路徑(Path) ex: `/device`
 
 ```java
